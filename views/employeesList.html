@@ -61,40 +61,22 @@
 <script src="../js/index.js"></script>
 
 <script>
-  function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+
+function deleteEmp(empID) {
+  var API_URL = "https://dw5ii1jbse.execute-api.us-east-2.amazonaws.com/test/employees/delete?employeeID=" + empID;
+  
+  console.log(empID);
 }
   $(document).ready(function() {
-      var cookie = getCookie('userID');
-      var Manager_API = "https://dw5ii1jbse.execute-api.us-east-2.amazonaws.com/test/employees/is-manager?employeeID=" + cookie;
-      $.ajax({url: Manager_API, success: function(res) {
-        var isManager = false;
-        if (res.length > 0) {
-          isManager = true;
+      var API_URL = "https://dw5ii1jbse.execute-api.us-east-2.amazonaws.com/test/employees";
+      $.ajax({url: API_URL, success: function(res) {
+        for (var i=0; i < res.length; i++) {
+            $("#post-office-table").append("<tr>");
+                for (var j = 0; j < res[i].length; j++)
+                    $("#post-office-table tr:last").append("<td>" + res[i][j] + "</td>");
+                $("#post-office-table tr:last").append("<td><button onclick='deleteEmp(this);'>Delete</button></td>"); 
+            $("#post-office-table").append("</tr>");
         }
-        var API_URL = "https://dw5ii1jbse.execute-api.us-east-2.amazonaws.com/test/employees";
-        $.ajax({url: API_URL, success: function(res) {
-          for (var i=0; i < res.length; i++) {
-              $("#post-office-table").append("<tr>");
-                  for (var j = 0; j < res[i].length; j++)
-                      $("#post-office-table tr:last").append("<td>" + res[i][j] + "</td>");
-                  if (isManager)
-                    $("#post-office-table tr:last").append("<td><button onclick='deleteEmployee()'>Delete</button></td>") ; 
-              $("#post-office-table").append("</tr>");
-          }
-        }});
       }});
   });
 </script>
