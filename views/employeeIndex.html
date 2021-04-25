@@ -48,7 +48,7 @@
       <option selected disabled value="">Select Here!</option>
       <option value="viewPkgLocations">View packages at location</option>
       <option value="updatePackageStatus" id="update-button">Update Package Status</option>
-      <option value="delete" id="delete">DELETE EMPLOYEE</option>
+      <option value="viewEmployees" id="delete">View Employees</option>
     </select>
   </div>
   <!-- add
@@ -86,6 +86,9 @@
     if (selectedValue == 'updatePackageStatus') {
       e.preventDefault();
       document.location = './updatePackageStatus.html';
+    } else if (selectedValue == 'viewEmployees') {
+      e.preventDefault();
+      document.location = './employeesList.html';
     }
   });
 </script>

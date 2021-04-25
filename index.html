@@ -50,6 +50,13 @@
         </div>
 
     <script>
+    function setCookie(cname, cvalue, exdays) {
+        console.log('called ' + cname, + ' ' + cvalue);
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
         $("#customer-form").on('submit', function(e) {
             e.preventDefault();
             var transactionType = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
@@ -60,15 +67,17 @@
                     alert("Invalid credentials, please try again.");
                 } else {
                     // TODO: set cookies 
+                    setCookie("userID", res[0][0], 10);
                     if (transactionType == 'Employee') {
+                        setCookie('userType', 'employee', 10);
                         document.location = './views/employeeIndex.html';
                     } else {
+                        setCookie('userType', 'customer', 10);
                         document.location = './views/customerIndex.html';
                     }
                 }
             }});
 })
-
     </script>
 </body>
 

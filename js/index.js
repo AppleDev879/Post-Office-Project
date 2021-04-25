@@ -37,7 +37,7 @@ $('select[name="form-change"]').on('change', function () {
             break;
     }
 });
-
+/*
 $("#customer-form").on("submit", function (e) {
     $.ajax({
         type: 'POST',
@@ -50,3 +50,4 @@ $("#customer-form").on("submit", function (e) {
     });
     e.preventDefault();
 });
+*/
