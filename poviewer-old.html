@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Post Office</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./js/index.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- replace with image -->
+      <a class="navbar-brand p-2" href="#">FedUp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="./signup.html">login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="postOffice" class="py-5 text-center block block-1">
+    <img src="./assets/Fedex-logo.png" alt="Absolutely FedUp">
+  </div>
+
+  <div id="postOffice" class="py-5 text-center block block-2">
+    <!-- maybe change this to a different container? -->
+    <table id="post-office-table">
+        <tr>
+            <td>ID</td>
+            <td>Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip</td>
+        </tr>
+    </table>
+  </div>
+
+  <script>
+      $(document).ready(function() {
+          var API_URL = "https://dw5ii1jbse.execute-api.us-east-2.amazonaws.com/test/post-offices";
+          $.ajax({url: API_URL, success: function(res) {
+            for (var i=0; i < res.length; i++) {
+                $("#post-office-table").append("<tr>");
+                    for (var j = 0; j < res[i].length; j++)
+                        $("#post-office-table tr:last").append("<td>" + res[i][j] + "</td>");
+                    $("#post-office-table tr:last").append("<td><a href=\'./showpackages.html?id=" + res[i][0] + "\'>" + "Show Packages" + "</a></td>")  
+                $("#post-office-table").append("</tr>")
+            }
+          }});
+      });
+  </script>
+</body>
+
+</html>
